@@ -31,6 +31,10 @@ typedef struct dl{
 
     nodeD *(*getPreviousNode)(nodeD *q);
 
+    void *(*search)(void *e, struct dl *ls, int(*fn)(void *, void *));   
+
+    int (*deleteNodeD)(void *e, struct dl *ls, int(*fn)(void *, void *));
+
     void (*deleteAll)(struct dl *ls);
 
     void (*travelListNatural)(struct dl *ls,
@@ -62,6 +66,10 @@ void shiftDN(doubleList *ls);
 nodeD *getNextNodeD(nodeD *p);
 
 nodeD *getPreviousNodeD(nodeD *p);
+
+void *searchNodeD(void *e, struct dl *ls, int(*fn)(void *, void *));
+
+int deleteNodeD(void *e, struct dl *ls, int(*fn)(void *, void *));
 
 void deleteALL(doubleList *ls);
 

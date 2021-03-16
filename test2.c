@@ -81,7 +81,7 @@ void insertOrderedDN(nodeD *q, doubleList *ls, int (*fn)(void *a, void *b)) {
         dl.last = q;
     } else {
         p = dl.first;
-        while (p != NULL && (fn(q, p) != 1)) {
+        while (p != NULL && (fn(q->data, p->data) != 1)) {
             p = p->next;
         }
         if (p == dl.first) {
@@ -127,6 +127,58 @@ nodeD *getPreviousNodeD(nodeD *p) {
     /*Get previous node of the p and return it*/
     p = p->prev;
     return p;
+}
+
+void *searchNodeD(void *e, doubleList *ls, int (*fn)(void *, void *)) {
+    nodeD *p = NULL;
+
+    if(ls->first == NULL) {
+        printf("Empty list\n");
+        return NULL;
+    } else {
+        p = ls->first;
+        while (p != NULL && (fn(e, p->data) != 0)) {
+            p = p->next;
+        }
+        if (p == NULL) {
+            printf("No exist the value.\n");
+            return NULL;
+        } else {
+            return p->data;
+        }
+    }
+}
+
+int deleteNodeD(void *e, doubleList *ls, int (*fn)(void *, void *)) {
+    nodeD *p = NULL;
+
+    if(ls->first == NULL) {
+        printf("Empty list\n");
+        return -1;
+    } else {
+        p = ls->first;
+        while (p != NULL && (fn(e, p->data) != 0)) {
+            p = p->next;
+        }
+        if (p == NULL) {
+            printf("No exist the value.\n");
+            return -1;
+        } else {
+            if (p == ls->first) {
+                shiftDN(ls);
+            } else {
+                if (p == ls->last) {
+                    popDN(ls);
+                } else {
+                    p->prev->next = p->next;
+                    p->next->prev = p->prev;
+                    free(p->data);
+                    free(p);
+                }
+            }
+        }
+        return 1;
+    }
 }
 
 void deleteALL(doubleList *ls){
@@ -183,6 +235,8 @@ doubleList createDoubleList() {
     dl.unshift = &unshiftDN;
     dl.shift = &shiftDN;
     dl.insertOrdered = &insertOrderedDN;
+    dl.search = &searchNodeD;
+    dl.deleteNodeD = &deleteNodeD;
     dl.deleteAll = &deleteALL;
     dl.getNextNode = &getNextNodeD;
     dl.getPreviousNode = &getPreviousNodeD;
