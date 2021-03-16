@@ -174,10 +174,11 @@ int deleteNodeD(void *e, doubleList *ls, int (*fn)(void *, void *)) {
                     p->next->prev = p->prev;
                     free(p->data);
                     free(p);
+                    ls->elements--;
                 }
             }
+            return 1;
         }
-        return 1;
     }
 }
 
