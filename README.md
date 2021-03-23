@@ -1,15 +1,7 @@
-# API Double Linked List for C
+# Interface Double Linked List for C
 This is an interface for wroking with double list. It is written in C, tested on Linux operating systems, specifically, Arch linux. 
 The interface is generic, so the nodes can have any type data.
 ## Functions of the interface
-```C
-error() 
-  /*This function display a message if is not possible reserv memory or an error has ocurried*/
-```
-```C
-fflishIn() 
-  /*Clear the buff input (stdin)*/
-```
 ```C
 createDoubleList() 
   /*Create an intance of double list*/
